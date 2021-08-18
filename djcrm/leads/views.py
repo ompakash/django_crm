@@ -3,7 +3,7 @@ from django.forms.forms import Form
 from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from .models import Agent, Lead
-from .forms import LeadForm
+from .forms import  LeadModelForm
 
 # Create your views here.
 def lead_list(request):
@@ -23,26 +23,41 @@ def lead_detail(request,pk):
 
 def lead_create(request):
     # print(request.POST)
-    form = LeadForm()
+    form = LeadModelForm()
     if request.method == "POST":
         print("Receiving a Post request")
-        form = LeadForm(request.POST)
+        form = LeadModelForm(request.POST)
         if form.is_valid():
-            print("The Form is Valid")
-            print(form.cleaned_data)
-            first_name = form.cleaned_data['first_name']
-            last_name = form.cleaned_data['last_name']
-            age = form.cleaned_data['age']
-            agent = Agent.objects.first()
-            Lead.objects.create(
-                first_name = first_name,
-                last_name = last_name,
-                age = age,
-                agent = agent,
-            )
-            print("The Lead has been created")
+            form.save()
             return redirect("/leads")
     context = {
-        "form":LeadForm()
+        "form":LeadModelForm()
     }
     return render(request,"leads/lead_create.html",context)
+
+
+# def lead_create(request):
+#     # print(request.POST)
+#     form = LeadModelForm()
+#     if request.method == "POST":
+#         print("Receiving a Post request")
+#         form = LeadModelForm(request.POST)
+#         if form.is_valid():
+#             # print("The Form is Valid")
+#             # print(form.cleaned_data)
+#             # first_name = form.cleaned_data['first_name']
+#             # last_name = form.cleaned_data['last_name']
+#             # age = form.cleaned_data['age']
+#             # agent = form.cleaned_data['agent']
+#             # Lead.objects.create(
+#             #     first_name = first_name,
+#             #     last_name = last_name,
+#             #     age = age,
+#             #     agent = agent,
+#             # )
+#             # print("The Lead has been created")
+#             return redirect("/leads")
+#     context = {
+#         "form":LeadModelForm()
+#     }
+#     return render(request,"leads/lead_create.html",context)
