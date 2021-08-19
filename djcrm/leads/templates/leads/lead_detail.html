@@ -23,5 +23,8 @@
     <h1>This is all the details of {{lead.first_name}}</h1>
     <p> {{lead.first_name}} age is = {{ lead.age }} </p>
     <p>The agent responsible for this lead is : {{lead.agent}}</p>
+    <hr>
+    <a href="/leads/{{ lead.pk }}/update/">UPDATE</a>
+    <a href="/leads/{{ lead.pk }}/delete/">DELETE</a>
 </body>
 </html>
