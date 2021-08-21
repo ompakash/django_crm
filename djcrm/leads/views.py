@@ -6,6 +6,12 @@ from .models import Agent, Lead
 from .forms import  LeadModelForm
 
 # Create your views here.
+
+def landing_page(request):
+    return render(request, "landing.html")
+
+
+
 def lead_list(request):
     leads = Lead.objects.all()
     context = {
@@ -17,7 +23,7 @@ def lead_detail(request,pk):
     
     lead = Lead.objects.get(id=pk)
     context = {
-        "lead": lead
+        "lead": lead,
     }
     return render(request, 'leads/lead_detail.html',context)
 
@@ -25,7 +31,7 @@ def lead_create(request):
     # print(request.POST)
     form = LeadModelForm()
     if request.method == "POST":
-        # print("Receiving a Post request")
+        
         form = LeadModelForm(request.POST)
         if form.is_valid():
             form.save()
