@@ -12,5 +12,4 @@ urlpatterns = [
     path('<int:pk>/delete/',LeadDeleteView.as_view(),name="lead-delete"),
     path('create/',LeadCreateView.as_view(),name="lead-create"),
     
-
 ]
