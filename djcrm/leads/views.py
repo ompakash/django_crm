@@ -4,10 +4,17 @@ from django.forms.forms import Form
 from django.shortcuts import render,redirect,reverse
 from django.http import HttpResponse
 from .models import Agent, Lead
-from .forms import  LeadModelForm
+from .forms import  LeadModelForm, LeadForm, CustomerCreationForm
 from django.views import generic
 
 # Create your views here.
+class SignupView(generic.CreateView):
+    template_name =  "registration/signup.html"
+    form_class = CustomerCreationForm
+
+    def get_success_url(self):
+        return reverse("login")
+
 
 class LandingPageView(generic.TemplateView):
     template_name = "landing.html"
